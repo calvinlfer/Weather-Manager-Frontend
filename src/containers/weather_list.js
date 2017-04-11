@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
-import { removeWeather, fetchRealWeather } from '../actions/weather';
+import { removeWeather, fetchWeather } from '../actions/weather';
 
 class WeatherList extends Component {
     constructor(props) {
@@ -11,10 +11,9 @@ class WeatherList extends Component {
     }
 
     renderWeather(data) {
-        this.props.fetchRealWeather(this.props.jwtToken);
         const name = data.name;
-        const temperature = data.main.temp;
-        const humidity = data.main.humidity;
+        const temperature = data.currentTemperature;
+        const humidity = data.humidity;
         const id = data.id;
         return (
             <tr key={id}>
@@ -34,6 +33,10 @@ class WeatherList extends Component {
         if (!this.props.loggedIn) {
             browserHistory.push('/login');
         }
+    }
+
+    componentDidMount() {
+        this.props.fetchWeather(this.props.jwtToken);
     }
 
     render() {
@@ -56,6 +59,7 @@ class WeatherList extends Component {
 }
 
 function mapStateToProps(state) {
+    console.log(state.weather);
     return {
         weather: state.weather,
         jwtToken: state.authentication.jwtToken,
@@ -64,7 +68,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ removeWeather: removeWeather, fetchRealWeather: fetchRealWeather }, dispatch);
+    return bindActionCreators({ removeWeather: removeWeather, fetchWeather: fetchWeather }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(WeatherList);

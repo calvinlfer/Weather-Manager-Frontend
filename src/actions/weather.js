@@ -1,26 +1,20 @@
 import axios from 'axios';
 
-const WEATHER_API_KEY = '6ffadf1b4c343f42d1d07cfee073541f';
-const ROOT_URL = `http://api.openweathermap.org/data/2.5/weather?appid=${WEATHER_API_KEY}`;
-
-export const FETCH_WEATHER = 'FETCH_WEATHER';
+export const WEATHER_LIST = 'WEATHER_LIST';
 export const REMOVE_WEATHER = 'REMOVE_WEATHER';
 
-export function fetchWeather(lat, lng) {
-    const url = `${ROOT_URL}&lat=${lat}&lon=${lng}&units=metric`;
-    const request = axios.get(url);
+function weatherData(listOfWeather) {
     return {
-        type: FETCH_WEATHER,
-        payload: request
-    };
+        type: WEATHER_LIST,
+        payload: listOfWeather
+    }
 }
 
-export function fetchRealWeather(jwtToken) {
+export function fetchWeather(jwtToken) {
     return dispatch => {
         const url = 'http://localhost:9001/protected';
         const config = {headers: {Authorization: `Bearer ${jwtToken}`}};
-        axios.get(url, config)
-            .then(response => console.log(response.data));
+        axios.get(url, config).then(response => dispatch(weatherData(response.data)));
     }
 }
 

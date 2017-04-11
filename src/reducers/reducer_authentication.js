@@ -12,7 +12,6 @@ export default function (currentState = initialState, incomingAction) {
             return Object.assign({}, currentState, { loggedIn: true, jwtToken: incomingAction.payload, error: null });
 
         case LOGIN_FAILURE :
-            console.log(incomingAction.payload);
             return Object.assign({}, currentState, { loggedIn: false, jwtToken: null, error: incomingAction.payload})
     }
 
