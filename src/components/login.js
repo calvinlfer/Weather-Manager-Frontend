@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router'
 
 export default class LoginForm extends Component {
     constructor(props) {
@@ -21,7 +22,10 @@ export default class LoginForm extends Component {
         event.preventDefault();
         console.log(this.state.email);
         console.log(this.state.password);
-        this.setState({email: '', password: ''})
+        this.setState({email: '', password: ''});
+
+        // navigate to weather regardless of response
+        browserHistory.push('/weather');
     }
 
     render() {
