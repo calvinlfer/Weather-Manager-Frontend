@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Autocomplete from 'react-google-autocomplete';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchWeather } from '../actions/weather';
+import { addWeather } from '../actions/weather';
 
 class AutoCompleteSearchBar extends Component {
     constructor(props) {
@@ -15,7 +15,7 @@ class AutoCompleteSearchBar extends Component {
         const longitude = place.geometry.location.lng();
         const latitude = place.geometry.location.lat();
         console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
-        this.props.fetchWeather(latitude, longitude);
+        this.props.addWeather(this.props.jwtToken, latitude, longitude);
     }
 
     render() {
@@ -33,7 +33,13 @@ class AutoCompleteSearchBar extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ fetchWeather: fetchWeather }, dispatch);
+    return bindActionCreators({ addWeather: addWeather }, dispatch);
 }
 
-export default connect(null, mapDispatchToProps)(AutoCompleteSearchBar);
+function mapStateToProps(state) {
+    return {
+        jwtToken: state.authentication.jwtToken
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AutoCompleteSearchBar);

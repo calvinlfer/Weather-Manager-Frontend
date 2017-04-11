@@ -59,7 +59,6 @@ class WeatherList extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log(state.weather);
     return {
         weather: state.weather,
         jwtToken: state.authentication.jwtToken,
