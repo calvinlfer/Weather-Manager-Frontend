@@ -6,6 +6,7 @@ import LoginForm from './containers/login';
 
 export default (
     <Route path="/" component={App}>
+        <IndexRoute component={LoginForm}/>
         <Route path="/weather" component={Weather}/>
         <Route path="/login" component={LoginForm} />
     </Route>

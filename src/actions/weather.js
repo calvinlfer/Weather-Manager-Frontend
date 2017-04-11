@@ -34,9 +34,20 @@ export function addWeather(jwtToken, lat, lon) {
     }
 }
 
-export function removeWeather(id) {
+function removeWeatherData(id) {
     return {
         type: REMOVE_WEATHER,
         payload: id
+    }
+}
+
+export function removeWeather(jwtToken, id) {
+    return dispatch => {
+        const url = `http://localhost:9001/members/me/forecasts/${id}`;
+        const config = {headers: {Authorization: `Bearer ${jwtToken}`}};
+        axios.delete(url, config).then(response => {
+            if (response.status === 200) dispatch(removeWeatherData(id));
+            else console.log("Could not remove weather information")
+        })
     }
 }

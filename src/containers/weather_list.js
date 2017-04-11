@@ -23,7 +23,7 @@ class WeatherList extends Component {
                 <td><button
                     type="button"
                     className="btn btn-danger"
-                    onClick={() => this.props.removeWeather(id)}
+                    onClick={() => this.props.removeWeather(this.props.jwtToken, id)}
                 >Remove</button></td>
             </tr>
         )
