@@ -1,7 +1,10 @@
-import React, { Component } from 'react';
-import { browserHistory } from 'react-router'
+import React, {Component} from "react";
+import {connect} from "react-redux";
+import {browserHistory} from 'react-router';
+import {bindActionCreators} from "redux";
+import {loginUser} from "../actions/auth";
 
-export default class LoginForm extends Component {
+class LoginForm extends Component {
     constructor(props) {
         super(props);
         this.state = { email: '', password: ''};
@@ -24,8 +27,14 @@ export default class LoginForm extends Component {
         console.log(this.state.password);
         this.setState({email: '', password: ''});
 
-        // navigate to weather regardless of response
-        browserHistory.push('/weather');
+        // dispatch login user action
+        this.props.loginUser();
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        if (nextProps.loggedIn) {
+            browserHistory.push('/weather');
+        }
     }
 
     render() {
@@ -43,12 +52,12 @@ export default class LoginForm extends Component {
                             value={this.state.email}
                             onChange={this.onUsernameChange} />
                         <div>
-                        <input
-                            className="form-control"
-                            placeholder="Enter your password"
-                            value={this.state.password}
-                            type="password"
-                            onChange={this.onPasswordChange} />
+                            <input
+                                className="form-control"
+                                placeholder="Enter your password"
+                                value={this.state.password}
+                                type="password"
+                                onChange={this.onPasswordChange} />
                         </div>
                         <div className="input-group-btn">
                             <button type="submit" className="btn btn-lg btn-primary btn-block">Submit</button>
@@ -59,3 +68,16 @@ export default class LoginForm extends Component {
         );
     }
 }
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ loginUser: loginUser }, dispatch)
+}
+
+function mapStateToProps(state) {
+    return {
+        loggedIn: state.authentication.loggedIn
+    };
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { removeWeather } from '../actions/index';
+import { removeWeather } from '../actions/weather';
 
 class WeatherList extends Component {
     constructor(props) {

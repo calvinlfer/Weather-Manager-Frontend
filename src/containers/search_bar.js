@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Autocomplete from 'react-google-autocomplete';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchWeather } from '../actions/index';
+import { fetchWeather } from '../actions/weather';
 
 class AutoCompleteSearchBar extends Component {
     constructor(props) {
