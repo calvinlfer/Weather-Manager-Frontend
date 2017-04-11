@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import AutoCompleteSearchBar from "../containers/search_bar";
-import WeatherList from "../containers/weather_list";
 
 export default class App extends Component {
   render() {
     return (
       <div>
-          <AutoCompleteSearchBar />
-          <WeatherList />
+          <h1>Weather Manager</h1>
+          {this.props.children}
       </div>
     );
   }
