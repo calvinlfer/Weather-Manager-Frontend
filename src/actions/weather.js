@@ -15,6 +15,15 @@ export function fetchWeather(lat, lng) {
     };
 }
 
+export function fetchRealWeather(jwtToken) {
+    return dispatch => {
+        const url = 'http://localhost:9001/protected';
+        const config = {headers: {Authorization: `Bearer ${jwtToken}`}};
+        axios.get(url, config)
+            .then(response => console.log(response.data));
+    }
+}
+
 export function removeWeather(id) {
     return {
         type: REMOVE_WEATHER,

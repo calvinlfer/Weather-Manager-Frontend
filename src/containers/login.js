@@ -23,17 +23,23 @@ class LoginForm extends Component {
 
     onFormSubmit(event) {
         event.preventDefault();
-        console.log(this.state.email);
-        console.log(this.state.password);
-        this.setState({email: '', password: ''});
+        const email = this.state.email;
+        const password = this.state.password;
 
         // dispatch login user action
-        this.props.loginUser();
+        this.props.loginUser(email, password);
+
+        // reset fields
+        this.setState({email: '', password: ''});
     }
 
     componentWillUpdate(nextProps, nextState) {
         if (nextProps.loggedIn) {
             browserHistory.push('/weather');
+        }
+
+        if (nextProps.error) {
+            console.log("Error: " + nextProps.error);
         }
     }
 
@@ -75,7 +81,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
     return {
-        loggedIn: state.authentication.loggedIn
+        loggedIn: state.authentication.loggedIn,
+        error: state.authentication.error
     };
 }
 

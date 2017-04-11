@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
-import { removeWeather } from '../actions/weather';
+import { removeWeather, fetchRealWeather } from '../actions/weather';
 
 class WeatherList extends Component {
     constructor(props) {
@@ -10,7 +11,7 @@ class WeatherList extends Component {
     }
 
     renderWeather(data) {
-        console.log(data);
+        this.props.fetchRealWeather(this.props.jwtToken);
         const name = data.name;
         const temperature = data.main.temp;
         const humidity = data.main.humidity;
@@ -27,6 +28,12 @@ class WeatherList extends Component {
                 >Remove</button></td>
             </tr>
         )
+    }
+
+    componentWillMount() {
+        if (!this.props.loggedIn) {
+            browserHistory.push('/login');
+        }
     }
 
     render() {
@@ -50,12 +57,14 @@ class WeatherList extends Component {
 
 function mapStateToProps(state) {
     return {
-        weather: state.weather
+        weather: state.weather,
+        jwtToken: state.authentication.jwtToken,
+        loggedIn: state.authentication.loggedIn
     };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ removeWeather: removeWeather }, dispatch);
+    return bindActionCreators({ removeWeather: removeWeather, fetchRealWeather: fetchRealWeather }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(WeatherList);
