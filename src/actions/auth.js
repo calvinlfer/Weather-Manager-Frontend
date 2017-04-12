@@ -6,6 +6,8 @@ export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
 export const SIGNUP_SUCCESSFUL = 'SIGNUP_SUCCESSFUL';
 export const RESET_FAILURE = 'RESET_FAILURE';
 export const RESET_SUCCESSFUL = 'RESET_SUCCESSFUL';
+export const RECOVER_FAILURE = 'RECOVER_FAILURE';
+export const RECOVER_SUCCESSFUL = 'RECOVER_SUCCESSFUL';
 
 function loginSuccess(token) {
     return {
@@ -91,5 +93,27 @@ export function forgotPassword(email) {
                 console.log(error.response);
                 dispatch(resetFailure(error.response.data.message))
             });
+    }
+}
+
+function recoverFailure(message) {
+    return {
+        type: RECOVER_FAILURE,
+        payload: message
+    }
+}
+
+function recoverSuccessful() {
+    return {
+        type: RECOVER_SUCCESSFUL
+    }
+}
+
+export function recover(recoveryCode, newPassword) {
+    return dispatch => {
+        const config = {timeout: 3000};
+        axios.post('http://localhost:9001/recover', {resetCode: recoveryCode, newPassword: newPassword})
+            .then(response => dispatch(recoverSuccessful()))
+            .catch(error => dispatch(recoverFailure(error.response.data.message)))
     }
 }

@@ -29,7 +29,8 @@ export default class App extends Component {
               <Nav>
                   <NavItem eventKey={1} href="/signup">Sign up</NavItem>
                   <NavItem eventKey={2} href="/forgotPassword">Forgot Password</NavItem>
-                  <NavItem eventKey={3} href="/login">Login</NavItem>
+                  <NavItem eventKey={3} href="/recover">Change Password</NavItem>
+                  <NavItem eventKey={4} href="/login">Login</NavItem>
               </Nav>
           </Navbar>
       );
