@@ -21,7 +21,7 @@ function weatherData(weather) {
 export function fetchWeather(jwtToken) {
     return dispatch => {
         const url = 'http://localhost:9001/members/me/forecasts';
-        const config = {headers: {Authorization: `Bearer ${jwtToken}`}};
+        const config = {headers: {Authorization: `Bearer ${jwtToken}`}, timeout: 5000};
         axios.get(url, config).then(response => dispatch(weatherListData(response.data)));
     }
 }

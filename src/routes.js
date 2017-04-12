@@ -4,6 +4,7 @@ import App from './components/app';
 import Weather from './components/weather';
 import LoginForm from './containers/login';
 import SignupForm from './containers/signup';
+import ResetForm from './containers/passwordreset';
 
 export default (
     <Route path="/" component={App}>
@@ -11,5 +12,6 @@ export default (
         <Route path="/weather" component={Weather}/>
         <Route path="/login" component={LoginForm} />
         <Route path="/signup" component={SignupForm} />
+        <Route path="/forgotPassword" component={ResetForm}/>
     </Route>
 );
