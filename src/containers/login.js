@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {browserHistory} from 'react-router';
 import {bindActionCreators} from "redux";
+import {Alert} from 'react-bootstrap';
 import {loginUser} from "../actions/auth";
 
 class LoginForm extends Component {
@@ -31,6 +32,12 @@ class LoginForm extends Component {
 
         // reset fields
         this.setState({email: '', password: ''});
+    }
+
+    errorAlert(errorMessage) {
+        return (
+            <Alert bsStyle="danger">{errorMessage}</Alert>
+        );
     }
 
     componentWillUpdate(nextProps, nextState) {
@@ -70,6 +77,7 @@ class LoginForm extends Component {
                         </div>
                     </div>
                 </form>
+                {this.props.error && this.errorAlert(this.props.error)}
             </div>
         );
     }
