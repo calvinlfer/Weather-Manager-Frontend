@@ -17,7 +17,7 @@ export default class App extends Component {
     );
   }
 
-  navBar() {
+  navBarWithSignup() {
       return (
           <Navbar>
             <Navbar.Header>
@@ -25,16 +25,19 @@ export default class App extends Component {
                 <a href="/">Weather Manager</a>
               </Navbar.Brand>
             </Navbar.Header>
+              <Nav>
+                  <NavItem eventKey={1} href="/signup">Sign up</NavItem>
+              </Nav>
           </Navbar>
       );
   }
 
   render() {
     const path = this.props.location.pathname;
-    if (path === '/login' || path === '/') {
+    if (path === '/login' || path === '/' || path === '/signup') {
         return (
             <div>
-                {this.navBar()}
+                {this.navBarWithSignup()}
                 {this.props.children}
             </div>
         );
