@@ -9,6 +9,8 @@ export const RESET_SUCCESSFUL = 'RESET_SUCCESSFUL';
 export const RECOVER_FAILURE = 'RECOVER_FAILURE';
 export const RECOVER_SUCCESSFUL = 'RECOVER_SUCCESSFUL';
 
+const API_URL = 'http://localhost:9001';
+
 function loginSuccess(token) {
     return {
         type: LOGIN_SUCCESS,
@@ -25,7 +27,7 @@ function loginFailure(message) {
 
 export function loginUser(email, password) {
     return dispatch => {
-        axios.post('http://localhost:9001/authenticate', {
+        axios.post(API_URL + '/authenticate', {
             email: email,
             password: password
         })
@@ -56,7 +58,7 @@ function successfulSignup(message) {
 
 export function signUp(email, password) {
     return dispatch => {
-        axios.post('http://localhost:9001/signup', {
+        axios.post(API_URL + '/signup', {
             email: email,
             password: password
         })
@@ -87,7 +89,7 @@ function resetSuccessful() {
 export function forgotPassword(email) {
     return dispatch => {
         const config = {timeout: 5000};
-        axios.post('http://localhost:9001/reset', {email: email}, config)
+        axios.post(API_URL + '/reset', {email: email}, config)
             .then(response => dispatch(resetSuccessful()))
             .catch(error => {
                 console.log(error.response);
@@ -112,7 +114,7 @@ function recoverSuccessful() {
 export function recover(recoveryCode, newPassword) {
     return dispatch => {
         const config = {timeout: 3000};
-        axios.post('http://localhost:9001/recover', {resetCode: recoveryCode, newPassword: newPassword})
+        axios.post(API_URL + '/recover', {resetCode: recoveryCode, newPassword: newPassword}, config)
             .then(response => dispatch(recoverSuccessful()))
             .catch(error => dispatch(recoverFailure(error.response.data.message)))
     }
