@@ -38,7 +38,10 @@ export function loginUser(email, password) {
                 dispatch(loginSuccess(response.data.accessToken));
             }
         })
-        .catch(error => dispatch(loginFailure(error.response.data.message)));
+        .catch(error => {
+            if (!error.response) dispatch(loginFailure("Provide email and password"));
+            else dispatch(loginFailure(error.response.data.message));
+        });
     }
 }
 
@@ -64,7 +67,9 @@ export function signUp(email, password) {
         })
         .then(response => dispatch(successfulSignup("Success!")))
         .catch(error => {
-            if (error.response.status === 409) {
+            if (!error.response) {
+                dispatch(signupFailure("Provide your email and password"))
+            } else if (error.response.status === 409) {
                 dispatch(signupFailure("User with that email already exists"))
             } else {
                 dispatch(signupFailure("Unable to sign up at this time, try again later"))
