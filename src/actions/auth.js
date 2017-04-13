@@ -40,6 +40,7 @@ export function loginUser(email, password) {
         })
         .catch(error => {
             if (!error.response) dispatch(loginFailure("Provide email and password"));
+            else if (error.response.status === 400) dispatch(loginFailure(error.response.data));
             else dispatch(loginFailure(error.response.data.message));
         });
     }
