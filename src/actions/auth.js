@@ -68,7 +68,9 @@ export function signUp(email, password) {
         .then(response => dispatch(successfulSignup("Success!")))
         .catch(error => {
             if (!error.response) {
-                dispatch(signupFailure("Provide your email and password"))
+                dispatch(signupFailure("Remote API is not ready yet"))
+            } else if (error.response.status === 400) {
+                dispatch(signupFailure(error.response.data))
             } else if (error.response.status === 409) {
                 dispatch(signupFailure("User with that email already exists"))
             } else {
