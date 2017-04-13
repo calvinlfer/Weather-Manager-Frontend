@@ -39,7 +39,7 @@ export function loginUser(email, password) {
             }
         })
         .catch(error => {
-            if (!error.response) dispatch(loginFailure("Provide email and password"));
+            if (!error.response) dispatch(loginFailure("Remote API is not ready yet"));
             else if (error.response.status === 400) dispatch(loginFailure(error.response.data));
             else dispatch(loginFailure(error.response.data.message));
         });
@@ -68,15 +68,10 @@ export function signUp(email, password) {
         })
         .then(response => dispatch(successfulSignup("Success!")))
         .catch(error => {
-            if (!error.response) {
-                dispatch(signupFailure("Remote API is not ready yet"))
-            } else if (error.response.status === 400) {
-                dispatch(signupFailure(error.response.data))
-            } else if (error.response.status === 409) {
-                dispatch(signupFailure("User with that email already exists"))
-            } else {
-                dispatch(signupFailure("Unable to sign up at this time, try again later"))
-            }
+            if (!error.response) dispatch(signupFailure("Remote API is not ready yet"));
+            else if (error.response.status === 400) dispatch(signupFailure(error.response.data));
+            else if (error.response.status === 409) dispatch(signupFailure("User with that email already exists"));
+            else dispatch(signupFailure("Unable to sign up at this time, try again later"));
         })
     }
 }
@@ -100,8 +95,8 @@ export function forgotPassword(email) {
         axios.post(API_URL + '/reset', {email: email}, config)
             .then(response => dispatch(resetSuccessful()))
             .catch(error => {
-                console.log(error.response);
-                dispatch(resetFailure(error.response.data.message))
+                if (!error.response) dispatch(resetFailure("Remote API is not ready yet"));
+                else dispatch(resetFailure(error.response.data.message))
             });
     }
 }
@@ -124,6 +119,9 @@ export function recover(recoveryCode, newPassword) {
         const config = {timeout: 3000};
         axios.post(API_URL + '/recover', {resetCode: recoveryCode, newPassword: newPassword}, config)
             .then(response => dispatch(recoverSuccessful()))
-            .catch(error => dispatch(recoverFailure(error.response.data)))
+            .catch(error => {
+                if (!error.response) dispatch(recoverFailure("Remote API is not ready yet"));
+                else dispatch(recoverFailure(error.response.data))
+            });
     }
 }
