@@ -124,6 +124,6 @@ export function recover(recoveryCode, newPassword) {
         const config = {timeout: 3000};
         axios.post(API_URL + '/recover', {resetCode: recoveryCode, newPassword: newPassword}, config)
             .then(response => dispatch(recoverSuccessful()))
-            .catch(error => dispatch(recoverFailure(error.response.data.message)))
+            .catch(error => dispatch(recoverFailure(error.response.data)))
     }
 }
