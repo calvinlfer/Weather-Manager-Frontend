@@ -1,25 +1,15 @@
-# ReduxSimpleStarter
-
-Interested in learning [Redux](https://www.udemy.com/react-redux/)?
+# Weather Manager Frontend
+A simple UI created using React and Redux that is meant to interact with the [Weather Manager API](https://github.com/calvinlfer/Weather-Manager). This makes use of Google Places API in order to perform the autocomplete and resolve coordinates
 
 ### Getting Started
-
-There are two methods for getting started with this repo.
-
-#### Familiar with Git?
 Checkout this repo, install dependencies, then start the gulp process with the following:
 
 ```
-> git clone https://github.com/StephenGrider/ReduxSimpleStarter.git
-> cd ReduxSimpleStarter
+> git clone https://github.com/calvinlfer/Weather-Manager-Frontend.git
+> cd Weather-Manager-Frontend
 > npm install
 > npm start
 ```
 
-#### Not Familiar with Git?
-Click [here](https://github.com/StephenGrider/ReactStarter/releases) then download the .zip file.  Extract the contents of the zip file, then open your terminal, change to the project directory, and:
+You need to signup for a [Google API key](https://console.developers.google.com) and make sure to enable the Places API. In [index.html](https://github.com/calvinlfer/Weather-Manager-Frontend/blob/master/index.html), replace the existing key with your new key. 
 
-```
-> npm install
-> npm start
-```
