@@ -1,5 +1,5 @@
 # Weather Manager Frontend
-A simple UI created using React and Redux that is meant to interact with the [Weather Manager API](https://github.com/calvinlfer/Weather-Manager). This makes use of Google Places API in order to perform the autocomplete and resolve coordinates
+A simple UI created using React and Redux that is meant to interact with the [Weather Manager API](https://github.com/calvinlfer/Weather-Manager). This makes use of Google Places API in order to perform the location autocompletion/suggestion and resolve coordinates (latitude and longitude)
 
 ### Getting Started
 Checkout this repo, install dependencies, then start the gulp process with the following:
