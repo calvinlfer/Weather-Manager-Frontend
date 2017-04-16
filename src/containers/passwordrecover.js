@@ -25,8 +25,6 @@ class RecoverForm extends Component {
         event.preventDefault();
         const recoveryCode = this.state.recoveryCode;
         const password = this.state.newPassword;
-        console.log(recoveryCode);
-        console.log(password);
 
         // dispatch recover action
         this.props.recover(recoveryCode, password);
